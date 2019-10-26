@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-tap-highlight" content="no" />
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+<meta http-equiv="Content-Security-Policy" content="default-src *; connect-src *; style-src 'self' 'unsafe-inline'; media-src *">
 <link rel="stylesheet" type="text/css" href="css/index.css" />
 <script src="mobile/jquery-2.2.4.min.js"></script>
 <link rel="stylesheet" href="mobile/jquery.mobile-1.4.5.min.css" />
@@ -14,43 +14,25 @@
 </head>
 <body>
 
-
-  <div data-role="page" data-theme="b" id="dictionary">
-    
-    <div data-role="header">
-      <a href="index.html" data-icon="home" data-ajax="false">Start</a>
-      <a href="#newWord" data-icon="plus" data-ajax="false">Add new word</a>
-      <h1>Dictionary</h1>
-    </div>
-    
-    <div role="main" style="ui-content">  
-    
-      <div class="ui-grid-a">
-        <div class="ui-block-a">
-          
-          <div class="ui-bar">
-            <input type="text" name="search" id="search" value="">
-          </div>
- 
-          <div class="ui-bar">
-            <div id="pl" class="pl"><p></p></div>
-            <div id="gb" class="gb"><p></p></div>
-            <div id="us" class="us"><p></p></div>
-            <div id="ph" class="ph"><p></p></div>
-            <div id="ir" class="ir"><p></p></div>
-            <div id="note" class="note"><p></p></div>
-          </div>
-          
+<div data-role="page" data-theme="b" id="dictionary">
+  <div data-role="header">
+    <a href="index.html" data-icon="home" data-ajax="false">Start</a>
+    <a href="#newWord" data-icon="plus" data-ajax="false">Add new word</a>
+    <h1>Dictionary</h1>
+  </div>
+  <div role="main" style="ui-content">  
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <div class="ui-bar">
+          <input type="text" data-theme="a" name="search" id="search" value="">
         </div>
-            
-        <div class="ui-block-b">
-          <div class="ui-bar" id="wordsEN"></div>
-          <div class="ui-bar" id="wordsPL"></div>
-        </div>
-
+        <button id="readPonsButton">Pons</button>
       </div>
+       <div class="ui-block-b">
+       </div>
     </div>
-  </div><!-- page -->
+  </div><!-- main -->
+</div><!-- page -->
  
  
 <script type="text/javascript" src="cordova.js"></script>
