@@ -1,3 +1,27 @@
+function errorDB(err) { alert("Error processing SQL: "+ err.code + " " + err.message); }
+function successDB() {}
+
+function createDB(tx){
+  var sql = '';
+  sql += 'create table if not exists words(';
+  sql += 'id integer primary key,';
+  sql += 'gb_word text not null,';
+  sql += 'us_word text default "",';
+  sql += 'ph_word text default "",';
+  sql += 'ir_word text default "",';
+  sql += 'pl_word text not null,';
+  sql += 'notes text default "",';
+  sql += 'added text default ""';
+  sql += ')';
+  tx.executeSql(sql);
+}  
+
+function clearDB(tx){
+  tx.executeSql("delete from words where 1");
+}
+
+var db = window.openDatabase("words.db", "1.0", "enWords", 1000000);
+
 var app = {
     initialize: function() {
       this.bindEvents();
@@ -7,12 +31,14 @@ var app = {
       document.addEventListener('deviceready', this.onDeviceReady, false);
 
       document.getElementById('readPonsButton').addEventListener('click', this.readPons, false);
-      console.log(document.getElementById('readPonsButton'));
+
+      document.getElementById('searchBtn').addEventListener('click', this.searchMode, false);
+      document.getElementById('newBtn').addEventListener('click', this.newMode, false);
     }, // end bindEvents
     
     onDeviceReady: function() {
       app.receivedEvent('deviceready');
-      console.log('in onDeviceReady');
+      db.transaction(createDB, errorDB, successDB);
     }, // onDeviceReady
 
     readPons: function(event) {
@@ -122,9 +148,43 @@ var app = {
      onFlexionClick: function(event) {
         document.getElementById('ir').innerHTML = this.innerHTML;
      },
+
+     searchMode: function(event) {
+      app.setMode(0);
+     },
+
+     newMode: function(event) {
+       app.setMode(1);
+     },
     
+    setMode: function(mode) {
+      var input = document.querySelectorAll('.word input');
+      var p = document.querySelector('.word p');
+
+      switch (mode) {
+        case 0:
+          for (var x = 0; x < input.length; x++) {
+            input[x].style.display = 'none';
+          }
+          for (var x = 0; x < p.lenght; x++) {
+            p[x].style.display = 'block';
+          }
+          break;
+        case 1:
+          for (var x = 0; x < input.length; x++) {
+            input[x].style.display = 'block';
+          }
+          for (var x = 0; x < p.lenght; x++) {
+            p[x].style.display = 'none';
+          }
+          break;
+        case 2:
+          break;
+      }
+    },
+
     receivedEvent: function(id) {
     }, // receivedEvent
     
-    mode: 0
+    _mode: 0
 };

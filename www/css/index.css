@@ -81,3 +81,47 @@ dd {
 }
 
 
+.pl {
+  background:url(../img/pl16.png); 
+}
+
+
+.gb {
+  background:url(../img/gb16.png); 
+}
+
+.us {
+  background:url(../img/us16.png); 
+}
+
+.ph {
+  background:url(../img/ph16.png); 
+}
+
+.ir {
+  background:url(../img/ir16.png); 
+}
+
+.note {
+  background:url(../img/note16.png); 
+}
+
+.gb, .pl, .us, .ph, .ir, .note {
+  background-color: white;   
+  color: black;   
+  padding: 8px; 
+  padding-left: 45px;
+  border-bottom: 1px solid lightgray;
+  background-repeat: no-repeat;
+  background-position: 10px 10px; 
+
+
+}
+
+.pl p, .gb p, .us p, .ph p, .ir p, .note p  {
+  margin: 0;
+}
+
+#gb p, #pl p, #us p, #ph p, #ir p, #note p {
+    display: none;
+}
