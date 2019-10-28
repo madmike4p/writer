@@ -29,6 +29,12 @@ var app = {
 
     bindEvents: function() {
       document.addEventListener('deviceready', this.onDeviceReady, false);
+      
+      document.getElementById('ClearDbBtnBox').addEventListener('click', this.clearDbBtnBox, false);
+      document.getElementById('updateDbFromTemplateBtnBox').addEventListener('click', this.updateDbFromTemplateBtnBox, false);
+      document.getElementById('updateDbFromFileBtnBox').addEventListener('click', this.updateDbFromFileBtnBox, false);
+      document.getElementById('exportDbToFileBtnBox').addEventListener('click', this.exportDbToFileBtnBox, false);
+      
 
       document.getElementById('readPonsButton').addEventListener('click', this.readPons, false);
 
@@ -41,6 +47,19 @@ var app = {
       db.transaction(createDB, errorDB, successDB);
     }, // onDeviceReady
 
+    clearDbBtnBox: function(event) {
+      
+    },
+    
+    updateDbFromTemplateBtnBox: function(event) {
+    },
+    
+    updateDbFromFileBtnBox: function(event) {
+    },
+    
+    exportDbToFileBtnBox: function(event) {
+    },
+    
     readPons: function(event) {
       console.log('inReadPons');
       var address = 'https://pl.pons.com/t%C5%82umaczenie?q={0}&l=enpl&in=&lf=en&qnac=';
