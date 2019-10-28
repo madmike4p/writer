@@ -30,11 +30,13 @@ var app = {
     bindEvents: function() {
       document.addEventListener('deviceready', this.onDeviceReady, false);
       
-      document.getElementById('ClearDbBtnBox').addEventListener('click', this.clearDbBtnBox, false);
+
+            
       document.getElementById('updateDbFromTemplateBtnBox').addEventListener('click', this.updateDbFromTemplateBtnBox, false);
-      document.getElementById('updateDbFromFileBtnBox').addEventListener('click', this.updateDbFromFileBtnBox, false);
-      document.getElementById('exportDbToFileBtnBox').addEventListener('click', this.exportDbToFileBtnBox, false);
-      
+      //document.getElementById('updateDbFromFileBtnBox').addEventListener('click', this.updateDbFromFileBtnBox, false);
+      //document.getElementById('exportDbToFileBtnBox').addEventListener('click', this.exportDbToFileBtnBox, false);
+      $("#updateDbFromTemplateBtnBox").click(updateDbFromTemplateBtnBox);
+
 
       document.getElementById('readPonsButton').addEventListener('click', this.readPons, false);
 
@@ -45,13 +47,17 @@ var app = {
     onDeviceReady: function() {
       app.receivedEvent('deviceready');
       db.transaction(createDB, errorDB, successDB);
+      console.log('here');
+      
+
+      
+      
     }, // onDeviceReady
 
-    clearDbBtnBox: function(event) {
-      
-    },
+
     
     updateDbFromTemplateBtnBox: function(event) {
+        console.log('dupa');
     },
     
     updateDbFromFileBtnBox: function(event) {

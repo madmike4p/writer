@@ -84,8 +84,7 @@
       <div class="ui-grid-a">
         <div class="ui-block-a">
           <div class="ui-bar" style="">
-            <button class="ui-btn ui-mini ui-btn-b ui-icon-action ui-btn-icon-left" id="ClearDbBtn" disabled="">Clear database</button>
-            <button class="ui-btn ui-mini ui-btn-b ui-icon-plus ui-btn-icon-left" id="updateDbFromTemplateBtn" disabled="">Update database from template</button>
+            <button class="ui-btn ui-mini ui-btn-b ui-icon-plus ui-btn-icon-left" id="updateDbFromTemplateBtn" disabled="false">Update database from template</button>
             <button class="ui-btn ui-mini ui-btn-b ui-icon-edit ui-btn-icon-left" id="updateDbFromFileBtn" disabled="">Update database from file</button>
             <button class="ui-btn ui-mini ui-btn-b ui-icon-edit ui-btn-icon-left" id="exportDbToFileBtn" disabled="">Export database to file</button>
           </div>
@@ -94,16 +93,12 @@
         <div class="ui-block-b">
             <div class="ui-bar" style="">
               <form>
-                <input type="checkbox" id="ClearDbBtnBox" data-mini="true">
-                <label for="ClearDbBtnBox">I agree to clear database</label>
-              </form>
-              <form>
                 <input type="checkbox" id="updateDbFromTemplateBtnBox" data-mini="true">
-                <label for="updateDbFromTemplateBtnBox">I agree to update database from template</label>
+                <label for="updateDbFromTemplateBtnBox">I agree to clear and update database from template</label>
               </form>
               <form>
                 <input type="checkbox" id="updateDbFromFileBtnBox" data-mini="true">
-                <label for="updateDbFromFileBtnBox">I agree to update database from file</label>
+                <label for="updateDbFromFileBtnBox">I agree to clear and update database from file</label>
               </form>
               <form>
                 <input type="checkbox" name="saveAllDbBtnBox" id="exportDbToFileBtnBox" data-mini="true">
