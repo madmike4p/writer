@@ -37,6 +37,49 @@ function insertRecord(param, count, length) {
   }
 }
 
+function searchWordLike(param) {
+  var lineEn = '';
+  var linePl = '';
+  var container = document.getElementById('container');
+  container.innerHTML = '';
+  return function (tx) {
+    tx.executeSql("select id, gb_word, ir_word, ph_word, pl_word, notes from words where gb_word like ?", [param], function(tx1, result) {	 
+      var tab = [];
+      for (var x = 0; x < result.rows.length; x++) {
+        var line = '<a href="#" data-id="{id}" class="wordTag" style="color: white">{word}</a>';
+        line = line.replace('{id}', result.rows.item(x).id);
+        line = line.replace('{word}', result.rows.item(x).gb_word);
+        tab.push(line);
+      }
+          
+      if (tab.length > 0) {
+        lineEn = '<div id="wordsEn">' + tab.join(" ") + '</div>';
+      }
+      container.innerHTML += lineEn;
+      //app.bindWords();
+      }, errorDB);  
+
+
+    tx.executeSql("select id, gb_word, ir_word, ph_word, pl_word, notes from words where pl_word like ?", [param], function(tx1, result) {	 
+      var tab = [];
+      for (var x = 0; x < result.rows.length; x++) {
+        var line = '<a href="#" data-id="{id}" class="wordTag" style="color: white">{word}</a>';
+        line = line.replace('{id}', result.rows.item(x).id);
+        line = line.replace('{word}', result.rows.item(x).pl_word);
+        tab.push(line);
+      }
+          
+      if (tab.length > 0) {
+        lineEn = '<div id="wordsPl">' + tab.join(" ") + '</div>';
+      }
+      container.innerHTML += lineEn;
+      //app.bindWords();
+      }, errorDB);  
+
+
+  }
+
+}
 
 function exportDbToFile(tx) {
   tx.executeSql("select gb_word, us_word, ph_word, ir_word, pl_word, notes, added, modified from words", [], function(tx1, result) {	 
@@ -80,36 +123,13 @@ var app = {
       document.getElementById('exportDbToFileBtn').addEventListener('click', this.exportDbToFileBtn, false);
 
       $("#search").on("input", function(){
-        console.log('search changes');
-        //document.getElementById("wordsEN").innerHTML = '';
-        //document.getElementById("wordsPL").innerHTML = '';
-        //var searchString = '%' + $(this).val() + '%';
-        //if ($(this).val().length > 2) db.transaction(searchWordLike(searchString), errorDB, successDB);
+        
+        var searchString = '%' + $(this).val() + '%';
+        if ($(this).val().length > 2) db.transaction(searchWordLike(searchString), errorDB, successDB);
       });
       document.getElementById('search').focus();
 
-      // $(document).keydown(this.keyboardAction);
-      /*
-    keyboardAction: function(e) {
-      var activePage = $.mobile.pageContainer.pagecontainer('getActivePage').attr('id');
-      if (activePage == 'exercisePage') {
-        if (e.keyCode == 32) app.cardClick();
-        if (e.keyCode == 37) app.prevChapter();
-        if (e.keyCode == 39) app.nextChapter();
-        if (e.keyCode ==  8) $.mobile.changePage('#chapterPage');
-      }
-
-      if (activePage == 'chapterPage') {
-        if (e.keyCode ==  8) $.mobile.changePage('#bookPage');
-      }
-      return false;
-    },
-     */ 
-
-
-
-
-
+      $('#search').keydown(this.keyboardAction);
       
       // podpiecie checkboxow z jquery.mobile poprzez addEventListener nie dziala, wiec:
       $("#updateDbFromTemplateBtnBox").click(function(event) {
@@ -142,6 +162,81 @@ var app = {
       document.getElementById('searchBtn').addEventListener('click', this.searchMode, false);
       document.getElementById('newBtn').addEventListener('click', this.newMode, false);
     }, // end bindEvents
+
+    bindWords: function() {
+      /*
+        $(".enWord").off();
+        $(".plWord").off();
+        
+        $(".enWord").click(function() {
+          app.getWord($(this).attr("data-id"));
+        });
+        
+         $(".plWord").click(function() {
+          app.getWord($(this).attr("data-id"));
+        });
+        */
+    },
+
+
+    getWord: function(id) {
+      /*
+      db.transaction(function(tx){
+      tx.executeSql("select * from words where id = ?", [id], function(tx1, result) {	 
+        app.createWord(
+          result.rows.item(0).gb_word,
+          result.rows.item(0).us_word,
+          result.rows.item(0).ph_word,        
+          result.rows.item(0).ir_word,
+          result.rows.item(0).pl_word,
+          result.rows.item(0).notes);
+      }, errorDB);
+    }, errorDB, successDB);},
+    
+    createWord: function(gb_word, us_word, ph_word, ir_word, pl_word, notes) {
+      document.getElementById('pl').style.display = 'none';
+      document.getElementById('gb').style.display = 'none';
+      document.getElementById('us').style.display = 'none';      
+      document.getElementById('ph').style.display = 'none';
+      document.getElementById('ir').style.display = 'none';
+      document.getElementById('note').style.display = 'none';
+      
+      document.getElementById('pl').style.display = 'block';
+      document.getElementById('pl').firstElementChild.innerHTML = removeHTML(pl_word);
+      
+      document.getElementById('gb').style.display = 'block';
+      document.getElementById('gb').firstElementChild.innerHTML = removeHTML(gb_word);
+      
+      if (us_word) {
+        document.getElementById('us').parentNode.display = 'block';
+        document.getElementById('us').firstElementChild.innerHTML = removeHTML(us_word);
+      }
+      
+      if (ph_word) {
+        document.getElementById('ph').style.display = 'block';
+        document.getElementById('ph').firstElementChild.innerHTML = bracket2html(ph_word);
+      }
+      
+       if (ir_word) {
+        document.getElementById('ir').style.display = 'block';
+        document.getElementById('ir').firstElementChild.innerHTML = removeHTML(ir_word);
+      }
+      
+      if (notes) {
+        document.getElementById('note').style.display = 'block';
+        document.getElementById('note').firstElementChild.innerHTML = removeHTML(notes);
+      }
+      */
+    },
+
+    keyboardAction: function(event) {
+
+      var activePage = $.mobile.pageContainer.pagecontainer('getActivePage').attr('id');
+      if (activePage == 'main') {
+        if (event.keyCode == 13) app.readPons();
+      }
+      return true;
+    },
     
     onDeviceReady: function() {
       app.receivedEvent('deviceready');
@@ -232,21 +327,12 @@ var app = {
 
     readPons: function(event) {
       var address = 'https://pl.pons.com/t%C5%82umaczenie?q={0}&l=enpl&in=&lf=en&qnac=';
-      
       var text = document.getElementById('search').value;
-
-      
       address = address.replace('{0}', encodeURI(text));
-
-
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           app.ponsParse(this.response);
-          
-          
-          
-        
         }
       };
       xhttp.open("GET", address, true);
