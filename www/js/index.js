@@ -54,11 +54,9 @@ function searchWordLike(param) {
           
       if (tab.length > 0) {
         lineEn = '<div id="wordsEn">' + tab.join(" ") + '</div>';
+        container.innerHTML += lineEn;
       }
-      container.innerHTML += lineEn;
-      //app.bindWords();
-      }, errorDB);  
-
+    }, errorDB);  
 
     tx.executeSql("select id, gb_word, ir_word, ph_word, pl_word, notes from words where pl_word like ?", [param], function(tx1, result) {	 
       var tab = [];
@@ -70,15 +68,12 @@ function searchWordLike(param) {
       }
           
       if (tab.length > 0) {
-        lineEn = '<div id="wordsPl">' + tab.join(" ") + '</div>';
+        linePl = '<div id="wordsPl">' + tab.join(" ") + '</div>';
+        container.innerHTML += linePl;
       }
-      container.innerHTML += lineEn;
-      //app.bindWords();
-      }, errorDB);  
-
-
+      app.bindWords();
+    }, errorDB);  
   }
-
 }
 
 function exportDbToFile(tx) {
@@ -164,22 +159,14 @@ var app = {
     }, // end bindEvents
 
     bindWords: function() {
-      /*
-        $(".enWord").off();
-        $(".plWord").off();
-        
-        $(".enWord").click(function() {
-          app.getWord($(this).attr("data-id"));
-        });
-        
-         $(".plWord").click(function() {
-          app.getWord($(this).attr("data-id"));
-        });
-        */
+      $(".wordTag").off();
+      $(".wordTag").click(function() {
+        app.getWord($(this).attr("data-id"));
+      });
     },
 
-
     getWord: function(id) {
+      alert('in getWord with ' + id);
       /*
       db.transaction(function(tx){
       tx.executeSql("select * from words where id = ?", [id], function(tx1, result) {	 
@@ -191,9 +178,12 @@ var app = {
           result.rows.item(0).pl_word,
           result.rows.item(0).notes);
       }, errorDB);
-    }, errorDB, successDB);},
+    }, errorDB, successDB);
+    */
+    },
     
     createWord: function(gb_word, us_word, ph_word, ir_word, pl_word, notes) {
+      /*
       document.getElementById('pl').style.display = 'none';
       document.getElementById('gb').style.display = 'none';
       document.getElementById('us').style.display = 'none';      
