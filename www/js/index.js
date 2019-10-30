@@ -166,8 +166,6 @@ var app = {
     },
 
     getWord: function(id) {
-      alert('in getWord with ' + id);
-      /*
       db.transaction(function(tx){
       tx.executeSql("select * from words where id = ?", [id], function(tx1, result) {	 
         app.createWord(
@@ -179,7 +177,6 @@ var app = {
           result.rows.item(0).notes);
       }, errorDB);
     }, errorDB, successDB);
-    */
     },
     
     createWord: function(gb_word, us_word, ph_word, ir_word, pl_word, notes) {
