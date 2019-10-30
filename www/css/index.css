@@ -127,7 +127,7 @@ dd {
 }
 
 
-.tag {
+.wordTag {
   background-color:#000;
   color:#fff;
   display:inline-block;
@@ -139,6 +139,23 @@ dd {
   border-radius:6px;
 }
 
-tag a {
-color:#fff!important
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+wordTag a {
+color: #fff!important;
 }
