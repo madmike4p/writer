@@ -151,9 +151,6 @@ var app = {
           }
       });
 
-
-      document.getElementById('readPonsButton').addEventListener('click', this.readPons, false);
-
       document.getElementById('searchBtn').addEventListener('click', this.searchMode, false);
       document.getElementById('newBtn').addEventListener('click', this.newMode, false);
     }, // end bindEvents
@@ -169,6 +166,7 @@ var app = {
       db.transaction(function(tx){
       tx.executeSql("select * from words where id = ?", [id], function(tx1, result) {	 
         app.createWord(
+          result.rows.item(0).id,
           result.rows.item(0).gb_word,
           result.rows.item(0).us_word,
           result.rows.item(0).ph_word,        
@@ -179,7 +177,27 @@ var app = {
     }, errorDB, successDB);
     },
     
-    createWord: function(gb_word, us_word, ph_word, ir_word, pl_word, notes) {
+    createWord: function(id, gb_word, us_word, ph_word, ir_word, pl_word, notes) {
+      document.getElementById('id').value = id;
+
+      document.querySelector('.pl p').innerHTML = pl_word;
+      document.querySelector('.pl input').value = pl_word;
+
+      document.querySelector('.gb p').innerHTML = gb_word;
+      document.querySelector('.gb input').value = gb_word;
+
+      document.querySelector('.us p').innerHTML = us_word;
+      document.querySelector('.us input').value = us_word;
+      
+      document.querySelector('.ph p').innerHTML = ph_word;
+      document.querySelector('.ph input').value = ph_word;
+
+      document.querySelector('.ir p').innerHTML = ir_word;
+      document.querySelector('.ir input').value = ir_word;
+
+      document.querySelector('.note p').innerHTML = notes;
+      document.querySelector('.note input').value = notes;
+
       /*
       document.getElementById('pl').style.display = 'none';
       document.getElementById('gb').style.display = 'none';
